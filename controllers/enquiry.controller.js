@@ -32,8 +32,8 @@ const claimEnquiry = async (req, res) => {
       return res.status(409).send({ message: "Enquiry is already claimed" });
     }
 
-    // Set the claimedBy field to the user's email
-    enquiry.claimedBy = req.user.email;
+    // Set the claimedBy field to the user's id
+    enquiry.claimedBy = req.user.id;
     await enquiry.save();
     res.status(200).send({ message: "Enquiry claimed successfully" });
   } catch (error) {
@@ -47,7 +47,7 @@ const getClaimedEnquiries = async (req, res) => {
   try {
     // Find enquiries claimed by the user
     const claimedEnquiries = await EnquiryModel.find({
-      claimedBy: req.user.email,
+      claimedBy: req.user.id,
     });
 
     if (claimedEnquiries.length === 0) {

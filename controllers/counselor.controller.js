@@ -59,7 +59,7 @@ const counselorLogin = async (req, res) => {
 
     if (matchedPassword) {
       const token = jwt.sign(
-        { email: counselor.email },
+        { id: counselor._id },
         process.env.SECRET_KEY,
         { expiresIn: "1d" }
       );
